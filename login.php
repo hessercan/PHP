@@ -6,9 +6,10 @@
   </head>
   <body>
     <form>
-      <p>Name:</p>
-      <input type="text">
-    <input type="submit">
+      <p>Name:
+      <input type="text"></p>
+      <br />
+    <p style="align: center"><input type="submit"></p>
     </form>
   </body>
 </html>
