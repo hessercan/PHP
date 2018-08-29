@@ -6,8 +6,9 @@
   </head>
   <body>
     <form>
-      <input type="text"
+      <p>Name:</p>
+      <input type="text">
+    <input type="submit">
     </form>
   </body>
 </html>
-I think this is right
