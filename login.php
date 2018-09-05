@@ -1,4 +1,6 @@
-<?php session_start() ?>
+<?php session_start()
+require('dbconf.php');
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
