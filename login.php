@@ -1,6 +1,9 @@
-<?php session_start()
+<?php
+session_start();
 require('dbconn.php');
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -8,15 +11,15 @@ require('dbconn.php');
     <title></title>
   </head>
 
-  <?php
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+<?php
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-  if(isset($_POST['logout'])){
-    unset($_SESSION['username']);
-  }
+if (isset($_POST['logout'])){
+  unset($_SESSION['username']);
+}
 
-  ?>
+?>
 
   <body>
     <form method="post" action="">
