@@ -1,5 +1,5 @@
 <?php session_start()
-require('dbconf.php');
+require('dbconn.php');
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

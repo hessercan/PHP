@@ -9,17 +9,4 @@
   if ($conn->connection_error) {
     die("Connection Failed: ") . $conn->connect_error);
   }
-  else {
-    echo "Success";
-  }
 ?>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    Success!
-  </body>
-</html>
