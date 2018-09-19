@@ -2,7 +2,12 @@
 if (!isset($_SESSION)){
   session_start();
 }
+
 require('dbconn.php');
+
+if (isset($_SESSION['username'])){
+  header("Location: ./upload.php");
+}
 
 if (isset($_POST['username'])){
   $username = $_POST['username'];
@@ -16,8 +21,9 @@ if (isset($_POST['username'])){
 
   //Extraction the returned query information
   while ($row = $result->fetch_assoc()) {
-    if ($username == $row['username'] && password_verify($password, $row['password']) {
+    if ($username == $row['username'] && password_verify($password, $row['password'])) {
       $_SESSION['username'] = $username;
+      header("Location: ./upload.php");
     }
   }
 }
