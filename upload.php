@@ -1,16 +1,10 @@
 <?php
-if (!isset($_SESSION)){
-  session_start();
-}
+include('functions.php');
+require('dbconn.php');
 
-if(!isset($_SESSION['username'])){
-  header('Location: ./login.php');
-}
+//Checks Login Status and Redirects to index if not logged in.
+checkLoginStatus();
 
-if (isset($_POST['logout'])){
-  unset($_SESSION['username']);
-  header("Location: ./index.php");
-}
 
 //Debug Code for File Upload
 // var_dump($_FILES['upload']);
@@ -78,19 +72,21 @@ if (isset($_FILES['upload'])){
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title>Upload</title>
+    <?php $_SESSION['title']="Upload Files"; head(); ?>
   </head>
   <body>
+    <div class="main">
+    <?php navbar(); ?>
+
     Upload your File.
     <form class="" method="post" enctype="multipart/form-data">
       <input type="file" name="upload"><br />
       <input type="submit">
-      <br />
-      <br />
-      <input type="submit" name="logout" value="Logout">
 
     </form>
     <h4 style="color:red;"><?php if ($ret) { echo $ret; } ?></h4>
+
+    <?php foot(); ?>
+    </div>
   </body>
 </html>

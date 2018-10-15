@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       //SQL statement to execute
       $sql = "INSERT INTO users (username,password) VALUES ('$username','$password')";
       $conn->query($sql);
+      $conn->close();
+      header("Location: ./index.php");
   // }
 }
  ?>
@@ -17,12 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    <head>
      <meta charset="utf-8">
      <title>Register</title>
+     <?php include('header.php') ?>
    </head>
    <body>
-  <form method="post" action="./index.php">
+     <?php include('navbar.php') ?>
+     <h2>Register for PHP!</h2>
+  <form method="post" action="">
      <p>Username: <input type="text" name="username"></p>
-     <p>Password: <input type="password" name="password" ></p>
+     <p>Password: <input type="password" name="password"></p>
      <p style="align: center"><input type="submit"></p>
    </form>
+   <?php include('footer.php') ?>
    </body>
  </html>

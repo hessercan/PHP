@@ -1,15 +1,10 @@
 <?php
-if (!isset($_SESSION)){
-  session_start();
-}
+include('functions.php');
 
 require('dbconn.php');
 
-if (isset($_SESSION['username'])){
-  header("Location: ./upload.php");
-}
-
 if (isset($_POST['username'])){
+
   $username = $_POST['username'];
   $password = $_POST['password'];
 
@@ -22,10 +17,13 @@ if (isset($_POST['username'])){
   //Extraction the returned query information
   while ($row = $result->fetch_assoc()) {
     if ($username == $row['username'] && password_verify($password, $row['password'])) {
-      $_SESSION['username'] = $username;
-      header("Location: ./upload.php");
+      $_SESSION['username'] = $row['username'];
+      //header("Location: ./upload.php");
     }
   }
+}
+if (isset($_GET['logout'])) {
+  logoutUser();
 }
 
 ?>
@@ -33,32 +31,31 @@ if (isset($_POST['username'])){
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title>Login</title>
+    <?php $_SESSION['title'] = "Login"; head(); ?>
   </head>
 
-<?php
-
-if (isset($_POST['logout'])){
-  unset($_SESSION['username']);
-}
-
-?>
-
   <body>
-    <form method="post" action="">
-      <p>Username:
-      <input type="text" name="username" placeholder="Enter Username"></p>
-      <p>Password:
-      <input type="password" name="password" ></p>
-    <p style="align: center"><input type="submit" value="Login"></p>
-    <input type="submit" name="logout" value="Logout">
-    </form>
-    <a href="./register.php">Register</a><br />
+    <?php navbar(); ?>
 
-    <?php
-      echo "Logged in as: " . $_SESSION['username'];
-     ?>
+    <div class="login">
+      <table border="0" style="margin:auto;">
+      <form method="post" action="">
+    <tr>
+        <td style="width: 100px; text-align: right;">Username: </td>
+        <td style="width:200px; text-align: left;"><input type="text" name="username" placeholder="Enter Username"></td>
+    </tr>
+    <tr>
+        <td style="text-align: right;">Password:</td>
+        <td style="text-align: left;"><input type="password" name="password" ></td>
+      </tr>
+      <tr style="height: 50px;">
+        <td colspan="2" style="text-align: center;">
+      <input style="width: 100px; height: 2em; margin: 0 auto;" type="submit" name="login" value="Login">
+    </td>
+    </tr>
 
+      </form>
+    </table>
+    </div>
   </body>
 </html>
