@@ -1,4 +1,5 @@
-<!-- <?php
+<?php
+
 include('functions.php');
 
 //Checks Login Status and Redirects to index if not logged in.
@@ -113,4 +114,4 @@ if (isset($_POST['userid'])) {
    </div>
      <?php foot(); ?>
    </body>
- </html> -->
+ </html>
