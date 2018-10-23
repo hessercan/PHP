@@ -14,7 +14,7 @@ if (!isset($_SESSION['email'])){
 	<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title> <?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name'] . " - Profile"; ?> </title>
+	<title> <?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name'] . " - Edit Profile"; ?> </title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -107,7 +107,7 @@ if (!isset($_SESSION['email'])){
                                                 <h6>Flume<br/><small>Musical Producer</small></h6>
                                             </div>
                                             <div class="col-md-3 col-sm-2  ml-auto mr-auto">
-												                      <div class="form-check">
+												<div class="form-check">
 					                                <label class="form-check-label">
 					                                    <input class="form-check-input" type="checkbox" value="" checked>
 					                                    <span class="form-check-sign"></span>
@@ -126,7 +126,7 @@ if (!isset($_SESSION['email'])){
                                                 <h6>Banks<br /><small>Singer</small></h6>
                                             </div>
                                             <div class="col-md-3 col-sm-2">
-												<div class="form-check">
+                                              <div class="form-check">
 					                                <label class="form-check-label">
 					                                    <input class="form-check-input" type="checkbox" value="">
 					                                    <span class="form-check-sign"></span>
@@ -150,13 +150,6 @@ if (!isset($_SESSION['email'])){
 	<footer class="footer section-dark">
         <div class="container">
             <div class="row">
-                <!-- <nav class="footer-nav">
-                    <ul>
-                        <li><a href="https://www.creative-tim.com">Creative Tim</a></li>
-                        <li><a href="http://blog.creative-tim.com">Blog</a></li>
-                        <li><a href="https://www.creative-tim.com/license">Licenses</a></li>
-                    </ul>
-                </nav> -->
                 <div class="credits ml-auto">
                     <span class="copyright">
                         © <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by HesserCAN

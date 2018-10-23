@@ -75,11 +75,11 @@
         }
           //FollowMe
           echo "<td class=\"navbar\">";
-          echo (basename($_SERVER['PHP_SELF']) == "followme/index.html")
-          ? "<a href=\"followme/index.html\"><strong>Follow Me</strong></a>"
-          : "<a href=\"followme/index.html\">Follow Me</a>";
+          echo (basename($_SERVER['PHP_SELF']) == "followme")
+          ? "<a href=\"followme\"><strong>Follow Me</strong></a>"
+          : "<a href=\"followme\">Follow Me</a>";
           echo "</td>";
-        }?>
+        ?>
 
       </tr>
     </table>
