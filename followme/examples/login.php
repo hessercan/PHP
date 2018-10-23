@@ -1,7 +1,5 @@
 <?php
-if (!isset($_SESSION)){
-  session_start();
-}
+include('../functions.php');
 
 require('../../dbconn.php');
 
@@ -24,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['last_name'] = $row['last_name'];
       $_SESSION['image_url'] = $row['image_url'];
       $_SESSION['description'] = $row['description'];
-      $_SESSION['user_title'] = $row['user_title'];3
+      $_SESSION['user_title'] = $row['user_title'];
       header("Location: ./profile.php");
     }
   }
@@ -67,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<span class="navbar-toggler-bar"></span>
 					<span class="navbar-toggler-bar"></span>
 	            </button>
-	            <a class="navbar-brand" href="#">Follow Me</a>
+	            <a class="navbar-brand" href="./profile.php">Follow Me</a>
 			</div>
 		</div>
     </nav>

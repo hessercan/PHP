@@ -1,7 +1,5 @@
 <?php
-if (!isset($_SESSION)){
-  session_start();
-}
+include('../functions.php');
  ?>
 
 <!doctype html>
@@ -44,7 +42,7 @@ if (!isset($_SESSION)){
 			<div class="collapse navbar-collapse" id="navbarToggler">
 	            <ul class="navbar-nav ml-auto">
 	                <li class="nav-item">
-	                    <a href="./login.php" class="nav-link"><i class="nc-icon nc-touch-id"></i>Login</a>
+	                    <?php echo (isset($_SESSION['email'])) ? "<a href=\"?logout\" class=\"nav-link\">" . $_SESSION['email'] . "</a>" : "<a href=\"./login.php\" class=\"nav-link\"><i class=\"nc-icon nc-touch-id\"></i>Login</a>" ?>
 	                </li>
 	                <!-- <li class="nav-item">
 	                    <a href="login.php" class="nav-link"><i class="nc-icon nc-book-bookmark"></i>  Login</a>
@@ -66,8 +64,8 @@ if (!isset($_SESSION)){
                         <img src="<?php echo $_SESSION['image_url']; ?>" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                     </div>
                     <div class="name">
-                        <h4 class="title"><?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name']; ?><br /></h4>
-						<h6 class="description"><?php echo $_SESSION['user_title']; ?></h6>
+                        <h4 class="title"><?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name']; ?></h4>
+						            <h6 class="description"><?php echo $_SESSION['user_title']; ?></h6>
                     </div>
                 </div>
                 <div class="row">

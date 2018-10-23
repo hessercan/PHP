@@ -73,8 +73,6 @@
 
 
         }
-
-	       ?>
           //FollowMe
           echo "<td class=\"navbar\">";
           echo (basename($_SERVER['PHP_SELF']) == "followme/index.html")
