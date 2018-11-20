@@ -4,7 +4,7 @@ if (!isset($_SESSION)){
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    require('../../dbconn.php');
+    require('../dbconn.php');
     // if (isset($_POST['username'])){
     $email = $_POST['email'];
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<link href="../assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
-	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="../assets/css/nucleo-icons.css" rel="stylesheet">
 
@@ -76,16 +76,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                 <form class="register-form" method="post">
                                   <label>First Name</label>
-                                  <input name="first_name" type="text" class="form-control" placeholder="First Name">
+                                  <input name="first_name" type="text" class="form-control" placeholder="First Name" required>
 
                                   <label>Last Name</label>
-                                  <input name="last_name" type="text" class="form-control" placeholder="Last Name">
+                                  <input name="last_name" type="text" class="form-control" placeholder="Last Name" required>
 
                                     <label>Email</label>
-                                    <input name="email" type="text" class="form-control" placeholder="Email">
+                                    <input name="email" type="text" class="form-control" placeholder="Email" required>
 
                                     <label>Password</label>
-                                    <input name="password" type="password" class="form-control" placeholder="Password">
+                                    <input name="password" type="password" class="form-control" placeholder="Password" required>
                                     <button class="btn btn-danger btn-block btn-round">Register</button>
                                 </form>
                                 <div class="forgot">

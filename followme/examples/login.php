@@ -1,7 +1,7 @@
 <?php
 include('../functions.php');
 
-require('../../dbconn.php');
+require('../dbconn.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -17,12 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //Extraction the returned query information
   while ($row = $result->fetch_assoc()) {
     if ($email == $row['email'] && password_verify($password, $row['password'])) {
+      $_SESSION['user_id'] = $row['user_id'];
       $_SESSION['email'] = $row['email'];
       $_SESSION['first_name'] = $row['first_name'];
       $_SESSION['last_name'] = $row['last_name'];
       $_SESSION['image_url'] = $row['image_url'];
       $_SESSION['description'] = $row['description'];
       $_SESSION['user_title'] = $row['user_title'];
+      $_SESSION['ret'] = "";
       header("Location: ./profile.php");
     }
   }
@@ -51,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<link href="../assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
-	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="../assets/css/nucleo-icons.css" rel="stylesheet">
 

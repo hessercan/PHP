@@ -12,30 +12,43 @@ exit;
 
 require('../dbconn.php');
 
-$sql = "SELECT * FROM fm_users";
-$followUserResults = $conn->query($sql);
-$followingUserResults = $conn->query($sql);
+if ($_POST['submit'] == "Follow"){
+  $sqlalter = "";
+  $user_id = $_SESSION['user_id'];
+  foreach ($_POST as $key => $value) {
+      if ($key != "submit"){
+        if ($sqlalter != "") { $sqlalter .= ","; }
+        $sqlalter .= "($user_id,$key)";
+      }
+  }
+
+  // echo "$sqlalter"; //echos the sql insert to make sure it's formatted properly
+  $sql = "DELETE FROM fm_follows WHERE user_id = '$user_id';";
+  $conn->query($sql);
+  $sql = "INSERT INTO fm_follows (user_id,following_user_id) VALUES $sqlalter;";
+  $conn->query($sql);
+
+  header('Location: ./profile.php');
+}
+
+$sql = "SELECT * FROM fm_users;";
+$allresults = $conn->query($sql);
 
 $user_id = $_SESSION['user_id'];
 
-
-$sql = "SELECT user_id FROM fm_follows WHERE following_user_id = '$user_id'";
+$sql = "SELECT following_user_id FROM fm_follows WHERE user_id = '$user_id'";
 $followresults = $conn->query($sql);
 
 while($row = $followresults->fetch_row()) {
   $follow_user_ids[]=$row[0];
 }
 
-$sql = "SELECT following_user_id FROM fm_follows WHERE user_id = '$user_id'";
+$sql = "SELECT user_id FROM fm_follows WHERE following_user_id = '$user_id'";
 $followingresults = $conn->query($sql);
 
 while($row = $followingresults->fetch_row()) {
   $following_user_ids[]=$row[0];
 }
-
-// var_dump($follow_user_ids);
-// echo "<br />";
-// var_dump($following_user_ids);
 
  ?>
 
@@ -66,7 +79,6 @@ while($row = $followingresults->fetch_row()) {
 
 </head>
 <body>
-    <?php echo $_SESSION['ret']; ?>
     <nav class="navbar navbar-expand-md fixed-top navbar-transparent" color-on-scroll="150">
         <div class="container">
 			<div class="navbar-translate">
@@ -97,105 +109,61 @@ while($row = $followingresults->fetch_row()) {
 		</div>
         <div class="section profile-content">
             <div class="container">
-                <div class="owner">
-                    <div class="avatar">
-                        <img src="<?php echo $_SESSION['image_url']; ?>" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                    </div>
-                    <div class="name">
-                        <h4 class="title"><?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name']; ?></h4>
-						            <h6 class="description"><?php echo $_SESSION['user_title']; ?></h6>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 ml-auto mr-auto text-center">
-                        <p><?php echo $_SESSION['description']; ?></p>
-                        <br />
-                        <form action="edit-profile.php">
-                        <btn onclick="location.href='edit-profile.php'" class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn>
-                      </form>
-                    </div>
-                </div>
-                <br/>
+
                 <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#follows" role="tab">Followers</a>
+                                <a class="nav-link active" data-toggle="tab" href="#follows" role="tab">Available Users</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#following" role="tab">Following</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
                 <!-- Tab panes -->
                 <div class="tab-content following">
-                  <!-- Start Followers Tab -->
                     <div class="tab-pane text-center active" id="follows" role="tabpanel">
                         <div class="row">
                             <div class="col-md-6 ml-auto mr-auto">
+                              <!-- Start List Users -->
+                              <form class="" action="" method="post">
                                 <ul class="list-unstyled follows">
                                   <?php
-                                      while ($row = $followUserResults->fetch_assoc()) {
-                                        if(in_array($row['user_id'],$follow_user_ids)) {
+                                      while ($row = $allresults->fetch_assoc()) {
+                                        if ($row['user_id'] != $_SESSION['user_id']){
                                     ?>
                                     <li>
                                         <div class="row">
                                             <div class="col-md-2 col-sm-2 ml-auto mr-auto">
                                                 <img src="<?php echo $row['image_url']; ?>" alt="Profile Picture" class="img-circle img-no-padding img-responsive">
                                             </div>
-                                            <div class="col-md-7 col-sm-2 ml-auto mr-auto">
+                                            <div class="col-md-7 col-sm-4  ml-auto mr-auto">
                                                 <h6><?php echo $row['first_name'] . " " . $row['last_name']; ?><br/>
                                                   <small><?php echo $row['user_title']; ?></small></h6>
                                             </div>
+                                            <div class="col-md-3 col-sm-2  ml-auto mr-auto">
+												                      <div class="form-check">
+					                                <label class="form-check-label">
+					                                    <input class="form-check-input" name="<?php echo $row['user_id'] ?>" type="checkbox" value=""
+                                              <?php if(in_array($row['user_id'],$follow_user_ids)){ echo "checked"; } ?>
+                                              >
+					                                    <span class="form-check-sign"></span>
+					                                </label>
 					                            </div>
+                                            </div>
+                                        </div>
                                     </li>
                                     <hr />
                                 <?php }
-                                    }?>
+                                    } ?>
                                 </ul>
+                                <center><input class="btn btn-warning btn-round" type="submit" name="submit" value="Follow"></center>
+                              </form>
+                              <!-- End List Users -->
                             </div>
                         </div>
-                        <hr />
                     </div>
-                    <!-- End Followers Tab -->
-                    <!-- Start Following Tab -->
-                    <div class="tab-pane text-center" id="following" role="tabpanel">
-                      <?php if (isset($following_user_ids)) { ?>
-                        <div class="row">
-                            <div class="col-md-6 ml-auto mr-auto">
-                                <ul class="list-unstyled follows">
-                                  <?php
-                                      while ($row = $followingUserResults->fetch_assoc()) {
-                                        if(in_array($row['user_id'],$following_user_ids)) {
-                                    ?>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-2 col-sm-2 ml-auto mr-auto">
-                                                <img src="<?php echo $row['image_url']; ?>" alt="Profile Picture" class="img-circle img-no-padding img-responsive">
-                                            </div>
-                                            <div class="col-md-7 col-sm-2 ml-auto mr-auto">
-                                                <h6><?php echo $row['first_name'] . " " . $row['last_name']; ?><br/>
-                                                  <small><?php echo $row['user_title']; ?></small></h6>
-                                            </div>
-					                            </div>
-                                    </li>
-                                    <hr />
-                                <?php }
-                                    }?>
-                                </ul>
-                            </div>
-                        </div>
-                        <hr />
-                      <button onclick="location.href='edit-follows.php'" class="btn btn-warning btn-round">Find More Users to Follow</button>
-                    <?php } else { ?>
-                        <h3 class="text-muted">Not following anyone yet :(</h3>
-                        <button onclick="location.href='edit-follows.php'" class="btn btn-warning btn-round">Find Users to Follow</button>
-                      <?php } ?>
-                    </div>
-                    <!-- End Following Tab -->
                 </div>
-                <!-- End Tabs -->
             </div>
         </div>
     </div>

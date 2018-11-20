@@ -23,7 +23,7 @@ include('../functions.php');
 	<link href="../assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
-    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet">
 
@@ -89,7 +89,7 @@ include('../functions.php');
 			</div>
     	</div>
         <div class="main">
-			<div class="section text-center">
+			<!-- <div class="section text-center">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 ml-auto mr-auto">
@@ -152,9 +152,9 @@ include('../functions.php');
 				</div>
 
             </div>
-        </div>
+        </div> -->
 
-		<div class="section section-dark text-center">
+		<!-- <div class="section section-dark text-center">
             <div class="container">
                 <h2 class="title">Let's talk about us</h2>
 				<div class="row">
@@ -231,7 +231,7 @@ include('../functions.php');
     				</div>
     			</div>
         	</div>
-    	</div>
+    	</div> -->
 
             <div class="section landing-section">
                 <div class="container">
@@ -241,21 +241,41 @@ include('../functions.php');
                             <form class="contact-form" action="" method="post">
                                 <div class="row">
                                     <div class="col-md-6">
-                                      <label>Name</label>
+                                      <label>First Name</label>
                                         <div class="input-group">
 	                                        <span class="input-group-addon">
 	                                            <i class="nc-icon nc-user-run"></i>
 	                                        </span>
-	                                        <input type="text" class="form-control" placeholder="Name">
+	                                        <input type="text" class="form-control" placeholder="First Name">
 	                                    </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Email</label>
+                                        <label>Last Name</label>
                                         <div class="input-group">
                                           <span class="input-group-addon">
-                                            <i class="nc-icon nc-email-85"></i>
+                                            <i class="nc-icon nc-user-run"></i>
                                           </span>
-                                          <input type="text" class="form-control" placeholder="Email">
+                                          <input type="text" class="form-control" placeholder="Last Name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                      <label>Title</label>
+                                        <div class="input-group">
+	                                        <span class="input-group-addon">
+	                                            <i class="nc-icon nc-world-2"></i>
+	                                        </span>
+	                                        <input type="text" class="form-control" placeholder="Title">
+	                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Profile Picture</label>
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="nc-icon nc-cloud-upload-94"></i>
+                                          </span>
+                                          <input type="file" class="form-control" name="profile-pic">
                                         </div>
                                     </div>
                                 </div>
@@ -275,16 +295,9 @@ include('../functions.php');
 	<footer class="footer section-dark">
 		<div class="container">
 			<div class="row">
-				<nav class="footer-nav">
-					<ul>
-						<li><a href="https://www.creative-tim.com">Creative Tim</a></li>
-						<li><a href="http://blog.creative-tim.com">Blog</a></li>
-						<li><a href="https://www.creative-tim.com/license">Licenses</a></li>
-					</ul>
-				</nav>
 				<div class="credits ml-auto">
 					<span class="copyright">
-						© <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+						© <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by HesserCAN
 					</span>
 				</div>
 			</div>

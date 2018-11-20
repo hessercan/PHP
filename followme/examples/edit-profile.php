@@ -4,6 +4,17 @@ include('../functions.php');
 if (!isset($_SESSION['email'])){
   header('Location: ./login.php');
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  require('../dbconn.php');
+  updateProfile();
+
+  if (isset($_FILES['profile-pic'])){
+    uploadProfilePic();
+  }
+  reloadSession();
+}
+
  ?>
 
 <!doctype html>
@@ -27,7 +38,7 @@ if (!isset($_SESSION['email'])){
 	<link href="../assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
-	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 	<link href="../assets/css/nucleo-icons.css" rel="stylesheet">
 
@@ -56,11 +67,65 @@ if (!isset($_SESSION['email'])){
 	        </div>
 		</div>
     </nav>
-
-    <div class="wrapper">
-        <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('../assets/img/fabio-mangione.jpg');">
-			<div class="filter"></div>
-		</div>
+    <div class="section landing-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h2 class="text-center">Edit Profile</h2>
+                    <form class="contact-form" action="" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                              <label>First Name</label>
+                                <div class="input-group">
+                                  <span class="input-group-addon">
+                                      <i class="nc-icon nc-user-run"></i>
+                                  </span>
+                                  <input type="text" class="form-control" placeholder="First Name" name="first_name">
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                                <div class="input-group">
+                                  <span class="input-group-addon">
+                                    <i class="nc-icon nc-user-run"></i>
+                                  </span>
+                                  <input type="text" class="form-control" placeholder="Last Name" name="last_name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                              <label>Title</label>
+                                <div class="input-group">
+                                  <span class="input-group-addon">
+                                      <i class="nc-icon nc-world-2"></i>
+                                  </span>
+                                  <input type="text" class="form-control" placeholder="Title" name="user_title">
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Profile Picture</label>
+                                <div class="input-group">
+                                  <span class="input-group-addon">
+                                    <i class="nc-icon nc-cloud-upload-94"></i>
+                                  </span>
+                                  <input type="file" class="form-control" id="profile-pic" name="profile-pic">
+                                </div>
+                            </div>
+                        </div>
+                          <label>Description</label>
+                          <textarea class="form-control" rows="4" name="description" placeholder="Tell everyone a little about you..." name="description"></textarea>
+                          <div class="row">
+                            <div class="col-md-3 ml-auto mr-auto">
+                              <button class="btn btn-danger btn-lg btn-fill">Save Profile</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         <div class="section profile-content">
             <div class="container">
                 <div class="owner">
@@ -75,81 +140,18 @@ if (!isset($_SESSION['email'])){
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto text-center">
                         <p><?php echo $_SESSION['description']; ?></p>
-                        <br />
-                        <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn>
+                        
                     </div>
                 </div>
                 <br/>
-                <div class="nav-tabs-navigation">
-                    <div class="nav-tabs-wrapper">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#follows" role="tab">Follows</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#following" role="tab">Following</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Tab panes -->
-                <div class="tab-content following">
-                    <div class="tab-pane active" id="follows" role="tabpanel">
-                        <div class="row">
-                            <div class="col-md-6 ml-auto mr-auto">
-                                <ul class="list-unstyled follows">
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-2 col-sm-2 ml-auto mr-auto">
-                                                <img src="../assets/img/faces/clem-onojeghuo-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                            </div>
-                                            <div class="col-md-7 col-sm-4  ml-auto mr-auto">
-                                                <h6>Flume<br/><small>Musical Producer</small></h6>
-                                            </div>
-                                            <div class="col-md-3 col-sm-2  ml-auto mr-auto">
-												<div class="form-check">
-					                                <label class="form-check-label">
-					                                    <input class="form-check-input" type="checkbox" value="" checked>
-					                                    <span class="form-check-sign"></span>
-					                                </label>
-					                            </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <hr />
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-2 ml-auto mr-auto ">
-                                                <img src="../assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                            </div>
-                                            <div class="col-md-7 col-sm-4">
-                                                <h6>Banks<br /><small>Singer</small></h6>
-                                            </div>
-                                            <div class="col-md-3 col-sm-2">
-                                              <div class="form-check">
-					                                <label class="form-check-label">
-					                                    <input class="form-check-input" type="checkbox" value="">
-					                                    <span class="form-check-sign"></span>
-					                                </label>
-					                            </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane text-center" id="following" role="tabpanel">
-                        <h3 class="text-muted">Not following anyone yet :(</h3>
-                        <button class="btn btn-warning btn-round">Find artists</button>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
 	<footer class="footer section-dark">
         <div class="container">
             <div class="row">
+
                 <div class="credits ml-auto">
                     <span class="copyright">
                         © <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by HesserCAN
